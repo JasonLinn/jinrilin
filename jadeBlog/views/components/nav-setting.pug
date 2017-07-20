@@ -1,0 +1,14 @@
+.nav-setting
+    .ui.buttons
+        .ui.floating.dropdown.button
+            i.icon.bars
+            .menu
+                if user
+                    a(href="/posts?author#{user._id}", title="title").item 個人主頁
+                    .divider
+                    a(href="/posts/create", title="title").item  發表文章
+                    a(href="/signout", title="title").item 登出
+                else
+                  a(href="/signin", title="title").item 登錄
+                  a(href="/signup", title="title").item 註冊
+
