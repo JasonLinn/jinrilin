@@ -4,7 +4,7 @@
             i.icon.bars
             .menu
                 if user
-                    a(href="/posts?author#{user._id}", title="title").item 個人主頁
+                    a(href="/posts?author"+user._id, title="title").item 個人主頁
                     .divider
                     a(href="/posts/create", title="title").item  發表文章
                     a(href="/signout", title="title").item 登出

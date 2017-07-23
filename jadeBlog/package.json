@@ -1,7 +1,7 @@
 {
   "name": "pugBlog",
   "version": "1.0.0",
-  "description": "",
+  "description": "package.json description",
   "main": "index.js",
   "dependencies": {
     "config-lite": "^2.0.0",
