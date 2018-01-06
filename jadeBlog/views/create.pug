@@ -1,0 +1,20 @@
+include ./header.pug
+
+.ui.grid
+    .four.wide.column
+        a(href="/posts?author=#{user._id}" data-title="#{user.name}" data-content="#{user.bio}").avatar
+            img(src="/img/img.jpg", alt="").avatar
+
+    .eight.wide.column
+        form(action="/posts" method="post").ui.form.segment
+            .field.required
+                label 標題
+                input(type="text" name="title")
+            .field.required
+                label 內容
+                textarea(name="content",  rows="15")
+            input(type="submit" value="發布").ui.button
+
+include ./footer.pug
+
+
