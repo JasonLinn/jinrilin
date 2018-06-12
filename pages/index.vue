@@ -1,84 +1,103 @@
-<template>
-    <div id="page-index">
-      <div class="greetbox wow fadeInLeftCust">
-        <div class="logo"><img class="rwd-img" src="/images/logo-o.png"/></div>
-        <h1 class="title"><span>溫馨服務情</span><span>窩心衿日林</span></h1>
-        <div class="gobtn"><a href="about">進入網站</a></div>
-        <div class="iconbox">
-          <ul>
-            <li><a>
-                <div class="icon"><img class="rwd-img" src="images/icon/lodging.png" alt="宜蘭縣民宿0070號"/></div>
-                <div class="name">宜蘭縣民宿0070號</div></a></li>
-            <li><a>
-                <div class="icon"><img class="rwd-img" src="images/icon/countrycard.png" alt="國民旅遊卡特約民宿"/></div>
-                <div class="name">國民旅遊卡特約民宿</div></a></li>
-            <li><a>
-                <div class="icon"><img class="rwd-img" src="images/icon/facebook.png" alt="衿日林粉絲專頁"/></div>
-                <div class="name">衿日林粉絲專頁</div></a></li>
-          </ul>
-        </div>
-        <div class="bottom">
-          <div class="contact"><span>訂房專線：03-9500236</span><span>行動：0928-073438</span><span>張小姐</span></div>
-          <div class="address"><span>地址：宜蘭縣冬山鄉武淵村(三)路116號</span><span>傳真：03-9509677</span></div>
-        </div>
-      </div>
-      <div class="sliderbox">
-        <ul id="bannerSlider">
-          <li>
-            <div class="pic" style="background-image:url(images/slider/slider1.jpg)"></div>
-          </li>
-          <li>
-            <div class="pic" style="background-image:url(images/slider/slider2.jpg)"></div>
-          </li>
-          <li>
-            <div class="pic" style="background-image:url(images/slider/slider3.jpg)"></div>
-          </li>
-          <li>
-            <div class="pic" style="background-image:url(images/slider/slider4.jpg)"></div>
-          </li>
-          <li>
-            <div class="pic" style="background-image:url(images/slider/slider5.jpg)"></div>
-          </li>
-        </ul>
-      </div>
-      <div class="newsbox wow fadeInRight">
-        <div class="title">最新消息</div>
-        <div class="contentbox mCustomScrollbar" data-mcs-theme="dark">
-          <ul id="newsListBox">
-          </ul>
-        </div>
-      </div>
-      <footer>
-        <div class="contact"><span>訂房專線：03-9500236</span><span>行動：0928-073438</span><span>張小姐</span></div>
-        <div class="address"><span>地址：宜蘭縣冬山鄉武淵村(三)路116號</span><span>傳真：03-9509677</span></div>
-      </footer>
-    </div>
+<template lang="pug">
+    #page-index
+        .greetbox.wow.fadeInLeftCust
+          .logo
+            img(src="~assets/images/logo-o.png" class="rwd-img")
+          h1.title
+            span 溫馨服務情
+            span 窩心衿日林
+          .gobtn
+            a(href="about" class="enterWeb" id="enterWeb" onclick="dataLayer.push({'event': 'customEvent', 'eventInfo': {'category': 'Button', 'action': 'press'}})") 進入網站
+          .iconbox
+            ul
+              li
+                a
+                  .icon
+                    img(src="~assets/images/icon/lodging.png" class="rwd-img" alt="宜蘭縣民宿0070號")
+                  .name 宜蘭縣民宿0070號
+              li
+                a
+                  .icon
+                    img(src="~assets/images/icon/countrycard.png" class="rwd-img" alt="國民旅遊卡特約民宿")
+                  .name 國民旅遊卡特約民宿
+              li
+                a
+                  .icon
+                    img(src="~assets/images/icon/facebook.png" class="rwd-img" alt="衿日林粉絲專頁")
+                  .name 衿日林粉絲專頁
+          .bottom
+            .contact
+              span 訂房專線：03-9500236
+              span 行動：0928-073438
+              span 張小姐
+            .address
+              span 地址：宜蘭縣冬山鄉武淵村(三)路116號
+              span 傳真：03-9509677
+        .sliderbox
+          ul#bannerSlider
+            li
+              .pic
+              //- img(src="../images/slider/slider1.jpg" class="rwd-img")
+            li
+              .pic
+              //- img(src="../images/slider/slider2.jpg" class="rwd-img")
+            li
+              .pic
+              //- img(src="../images/slider/slider3.jpg" class="rwd-img")
+            li
+              .pic
+              //- img(src="../images/slider/slider4.jpg" class="rwd-img")
+            li
+              .pic
+            li
+              img(src="~assets/images/slider/slider5.jpg")
+              //- img(src="~assets/images/slider/slider5.jpg" class="rwd-img")
+        .newsbox.wow.fadeInRight
+          .title 最新消息
+          .contentbox.mCustomScrollbar(data-mcs-theme="dark")
+            ul#newsListBox
+              if(news)
+                each newsElement,index in news
+                  li #{newsElement.news_title} #{moment(newsElement.news_date).format("YYYY-MM-DD")}
+        footer
+          .contact
+            span 訂房專線：03-9500236
+            span 行動：0928-073438
+            span 張小姐
+          .address
+            span 地址：宜蘭縣冬山鄉武淵村(三)路116號
+            span 傳真：03-9509677
 </template>
 
 <script>
 import Logo from '~/components/Logo.vue'
+import $ from 'jquery'
 
+if (process.BROWSER_BUILD) {
+  if ($(window).width() < 641) {
+    $('.logo img').attr('src', '/~assets/~assets/images/logo-s.png')
+    $('.gobtn a').addClass('whitearrow')
+  }
+}
 export default {
   components: {
     Logo
+  },
+  mounted: () => {
+    $('#bannerSlider').bxSlider({
+      'mode': 'fade',
+      'controls': false,
+      'pager': false,
+      'auto': true,
+      'speed': 2000,
+      'touchEnabled': false
+    })
   }
 }
-// if($(window).width() < 641){
-//   $('.logo img').attr('src','/images/logo-s.png');
-//   $('.gobtn a').addClass('whitearrow');
-// }
-
-// $('#bannerSlider').bxSlider({
-//   mode:'fade',
-//   controls:false,
-//   pager:false,
-//   auto:true,
-//   speed:2000,
-//   touchEnabled:false
-// });
 </script>
 
-<style>
+<style lang="scss">
+@import '~assets/main.scss';
 #page-index {
   position: relative;
   height: 100vh;
@@ -86,7 +105,7 @@ export default {
   overflow: hidden;
   #bannerSlider{
     li:nth-of-type(1) .pic{
-      /*background-image:url('../images/slider/slider1.jpg');*/
+      /*background-image:url('../~assets/~assets/images/slider/slider1.jpg');*/
       background-position: 50%;
       background-size: cover;
       background-repeat: no-repeat;
@@ -142,14 +161,14 @@ export default {
           width: 120px;
           height: 10px;
           margin: 0 auto;
-          /*background-image: url('../images/icon/arrow.png');*/
+          /*background-image: url('../~assets/~assets/images/icon/arrow.png');*/
           background-repeat: no-repeat;
           // background-size: cover;
           background-position: 50%;
         }
 
         &.whitearrow:after {
-          /*background-image: url('../images/icon/arrow-o.png');*/
+          /*background-image: url('../~assets/~assets/images/icon/arrow-o.png');*/
         }
       }
     }
@@ -202,7 +221,15 @@ export default {
 
   .sliderbox {
     height: 100vh;
-
+    li {
+      @for $i from 1 through 5 {
+        &:nth-child(#{$i}) {
+            .pic {
+              background-image: url('~assets/images/slider/slider#{$i}.jpg');
+            }
+        }
+      }
+    }
     .pic {
       height: 100vh;
       background-size: cover;
